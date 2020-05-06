@@ -1,0 +1,23 @@
+header.header
+    div.logo-menu
+        a(href='/menu')
+            h1.logo-title Delilah
+    div.items-menu
+        if user
+            if (user.isAdmin === 1)
+                img.admin-img(src=`/img/lock_open-white-18dp.svg`)
+                a.admin-name(href='/admin')= user.fullName.split(' ')[0].charAt(0).toUpperCase() + user.fullName.slice(1)
+                a.log-out-btn
+                    img(src=`/img/exit_to_app-white-18dp.svg`)
+            else
+                a(href='/user')= user.fullName.split(' ')[0].charAt(0).toUpperCase() + user.fullName.slice(1)
+                a.cart-btn(href='/cart')
+                    img(src=`/img/shopping_cart-white-18dp.svg`)
+                a.order-btn(href='/order')
+                    img(src=`/img/payment-white-18dp.svg`)
+                a.log-out-btn
+                    img(src=`/img/exit_to_app-white-18dp.svg`)
+        else
+            a(href='/') Login
+            a(href='/signup') Register
+

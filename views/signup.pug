@@ -1,0 +1,28 @@
+extends base
+
+block content
+    if user
+        h2.already-logged You are signed in!
+    else
+        form.signup-form(action="", method="post")
+            div.form-item
+                label Username
+                input#usernameSign(type='text', name='username' placeholder='Username')
+            div.form-item   
+                label Passsword
+                input#passwordSign(type='password', name='password' placeholder='Password')
+            div.form-item   
+                label Full Name
+                input#fullName(type='text', name='fullName' placeholder='Full Name')
+            div.form-item   
+                label Email
+                input#email(type='email', name='email' placeholder='Email')
+            div.form-item   
+                label Phone
+                input#phone(type='tel', name="phone" placeholder='Phone')
+            div.form-item   
+                label Delivery Address
+                input#address(type='text', name='address' placeholder='Delivery Address')
+            div.form-buttons
+                button.signup-btn(type="submit") CREATE ACCOUNT
+                a(href='/login') LOGIN

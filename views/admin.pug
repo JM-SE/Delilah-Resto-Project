@@ -1,0 +1,75 @@
+extends base
+
+block content
+    div.admin-top-menu
+        - const date = new Date(Date.now()).toString().slice(0, 15)
+        span= date
+        div.dash-btns
+            a.create-product-btn(href='/create-product')= 'Products Dashboard'
+            a.user-dashboard-btn(href='/users')= 'Users Dashboard'
+    
+    div.admin-items
+        each order in orders
+            div.admin-item
+                span#orderID= `Order ID: #0${order.id}`
+                span= `Order Time: ${order.createdAt.toString().slice(16, 21)}hs.`
+                
+                select#orderStatus.select-css.select-css-admin(name=order.id)
+                    if (order.status === 0)
+                        option(value=0 selected) New
+                    else
+                        option(value=0) New
+
+                    if (order.status === 1)
+                        option(value=1 selected) Confirmed
+                    else
+                        option(value=1) Confirmed
+
+                    if (order.status === 2)    
+                        option(value=2 selected) Preparing
+                    else
+                        option(value=2) Preparing
+
+                    if (order.status === 3)
+                        option(value=3 selected) Delivering
+                    else
+                        option(value=3) Delivering
+
+                    if (order.status === 4)
+                        option(value=4 selected) Delivered
+                    else
+                        option(value=4) Delivered    
+
+                    if (order.status === 5)
+                        option(value=5 selected) Cancelled
+                    else
+                        option(value=5) Cancelled
+
+                hr
+    
+                span= `Total Price: $${order.totalPrice}`
+
+                - let pay;
+                - if(order.paymentMethod === 0) pay = 'Cash'
+                - if(order.paymentMethod === 1) pay = 'Credit Card'
+                span= `Payment Method: ${pay}`
+
+                div.product-NamesRdx
+                    span Products:
+                        each product in order.products
+                            span= ` ${product.nameRedux}x${product.orderItem.quantity}`
+
+
+                each product in order.products
+                        - const prodPrices = []
+                        - prodPrices.push(product.price * product.orderItem.quantity)
+                        - const totalPrice = prodPrices.reduce((a, b) => a + b, 0)
+    
+                each user in users
+                    - let userName
+                    - let userAddress
+                    - if (user.id === order.userId) userName = user.fullName, userAddress = user.address
+                    if (userName || userAddress)
+                        span= `Name: ${userName}`
+                        span= `Address: ${userAddress}`
+                    

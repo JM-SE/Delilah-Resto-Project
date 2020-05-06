@@ -1,0 +1,16 @@
+extends base
+
+block content
+    if user
+        h2.already-logged You are logged in!
+    else
+        form.login-form(action="", method="post")
+            div.form-item
+                label Username
+                input#username(type='text', name='username' plceholder='Your username' required)
+            div.form-item   
+                label Password
+                input#password(type='password', name='password' placeholder='········' required)
+            div.form-buttons
+                button.login-btn(type='submit') LOGIN
+                a(href='/signup') CREATE ACCOUNT

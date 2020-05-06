@@ -1,0 +1,20 @@
+extends base
+
+block content
+    div.menu-container
+        h2= title
+        div.menu-items
+
+            each product in products
+                div.menu-item
+                    div.menu-img-cont
+                        img(src=`/img/${product.imgThumb}`, alt=`${product.name} Picture`)
+                    div.menu-data-cont
+                        span= product.name
+                        span= `$${product.price}`
+                    div.menu-btns
+                        button.add-product-btn(value=`${product.id}`) +   
+                        each prod in cart
+                            if (product.id === prod.id) 
+                                span.quantity-menu= prod.cartItem.quantity
+                        button.remove-product-btn(value=`${product.id}`) -

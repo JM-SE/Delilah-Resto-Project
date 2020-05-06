@@ -1,0 +1,68 @@
+extends base
+
+block content 
+    a.user-dashboard-btn(href='/admin') Admin Dashboard
+    h2.create-prod-title Create new product
+    form.createProd-form#createProductForm(action="", method="post")
+            div.form-item
+                label Name
+                input#productName(type='text', name='name' placeholder='Product name')
+            div.form-item   
+                label Price
+                input#productPrice(type='number', name='price' placeholder='Price')
+            div.form-item   
+                abel Reduced Name
+                input#productNameRedux(type='text', name='reduxName' placeholder='Reduced Name')
+            div.form-item   
+                label Image
+                input#productImage(type='text', name='image' placeholder='Image Name')
+            div.form-item   
+                label Image Thumbnail
+                input#productImageThumb(type='text', name="imageThumb" placeholder='Thumbnail Name')
+
+            div.form-buttons
+                button.admin-create-product-btn(type="submit") CREATE
+
+    
+    h2.create-prod-title Update product
+    form.createProd-form#editProductForm(action="", method="post")
+            div.form-item
+                label ID
+                input#editProductID(type='number', name='id' placeholder='Product ID' required)
+            div.form-item
+                label Name
+                input#editProductName(type='text', name='name' placeholder='Product name' required)
+            div.form-item   
+                label Price
+                input#editProductPrice(type='number', name='price' placeholder='Price' required) 
+            div.form-item   
+                abel Reduced Name
+                input#editProductNameRedux(type='text', name='reduxName' placeholder='Reduced Name' required)
+            div.form-item   
+                label Image
+                input#editProductImage(type='text', name='image' placeholder='Image Name' required)
+            div.form-item   
+                label Image Thumbnail
+                input#editProductImageThumb(type='text', name="imageThumb" placeholder='Thumbnail Name' required)
+
+            div.form-buttons
+                button.admin-update-product-btn(type="submit") UPDATE
+
+
+    h2.create-prod-title Active Products
+    div.menu-container
+        div.admin-menu-items
+
+            each product in products
+                div.admin-menu-item
+                    img(src=`/img/${product.imgThumb}`, alt=`${product.name} Picture`)
+                    div.admin-item-info
+                        span= `ID: ${product.id}`
+                        span= `Name: ${product.name}`
+                        span= `Price: $${product.price}`
+                        span= `Reduced name: ${product.nameRedux}`
+                        span= `Image name: ${product.img}`
+                        span= `Thumbnail name: ${product.imgThumb}`
+                    div.admin-delete-item
+                        if (user.isAdmin === 1)
+                            button.delete-product-btn(value=`${product.id}`) DELETE

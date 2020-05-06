@@ -1,0 +1,35 @@
+extends base
+
+block content
+    div.cart-container
+        if (products.length === 0)
+                h2 You have no items in cart!
+        if (products.length > 0)
+            h2 Your Cart
+            div.cart-items
+                each product in products
+                    div.cart-item
+                        div.cart-img-cont                
+                            img(src=`/img/${product.imgThumb}`, alt=`${product.name} Picture`)
+                        div.menu-data-cont    
+                            span= product.name
+                            span= `$${product.price}`
+                        span.cart-item-qty= `x${product.cartItem.quantity}`
+
+            div.cart-info
+                span= `Total Order: ${prodsTotal} Products`               
+                span= `Total Price: $${priceTotal}`
+                
+                div.cart-payment-method
+                    span Payment Method
+                    select#paymentMethod.select-css(name='paymentMethod')
+                        option(value='0') Cash
+                        option(value='1') Credit Card
+                
+                span= `Delivery Address: ${user.address}`
+        
+            div.cart-form-buttons
+                if (hasOrders === 1)
+                    p YOU HAVE AN ORDER PENDING
+                if (!hasOrders)
+                    button#checkout(type="submit") CONFIRM ORDER

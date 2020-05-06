@@ -1,0 +1,45 @@
+extends base
+
+block content
+    div.cart-container
+            if (orders.length === 0)
+                h2 You have no order pending!
+            if (orders.length > 0)
+                h2 Your Order
+            
+                div.cart-items
+                    each order in orders
+                        - let status
+                        - if (order.status === 0) status = 'New'
+                        - if (order.status === 1) status = 'Confirmed'
+                        - if (order.status === 2) status = 'Preparing'
+                        - if (order.status === 3) status = 'Delivering'
+                        - if (order.status === 4) status = 'Delivered'
+                        - if (order.status === 5) status = 'Cancelled'
+                        h4.order-status= `Order Status: ${status}`
+                            
+                        div.order
+                            each productArray in products
+                                each product in productArray
+                                    div.cart-item
+                                        div.cart-img-cont                
+                                            img(src=`/img/${product.imgThumb}`, alt=`${product.name} Picture`)
+                                        div.menu-data-cont    
+                                            span= product.name
+                                            span= `$${product.price}`
+                                        span.cart-item-qty= `x${product.orderItem.quantity}`
+                
+                div.cart-info
+                    span= `Total Order: ${totalProducts} Products`               
+                    span= `Total Price: $${totalPrice}`
+                            
+                    div.cart-payment-method
+                        - let pay;
+                        - if(paymentMethod === 0) pay = 'Cash'
+                        - if(paymentMethod === 1) pay = 'Credit Card' 
+                        span= `Payment Method: ${pay}`
+
+                    span= `Delivery Address: ${user.address}`
+
+    div.order-btn
+        button#cancelOrder(value=orders[0].id) CANCEL ORDER

@@ -1,0 +1,688 @@
+openapi: 3.0.3
+info:
+  title: Delilah Restó
+  description: Backend & API for food delivery app.
+  contact:
+    email: jose.maria.silva.ezpeleta@gmail.com
+  version: 1.0.0
+externalDocs:
+  description: Github Repository
+  url: https://github.com/JM-SE/delilah-resto
+servers:
+  - url: https://localhost:5000/api/v1
+  - url: http://localhost:5000/api/v1
+tags:
+  - name: User
+    description: User endpoints
+  - name: Products
+    description: Products endpoints
+  - name: Cart
+    description: Cart endpoints
+  - name: Orders
+    description: Orders endpoints
+
+paths:
+  /signup:
+    post:
+      tags:
+        - User
+      summary: Create user
+      description: Creates a new User in the database.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+        required: true
+      security: []
+      responses:
+        200:
+          description: User successfuly created.
+        400:
+          description: Error validating input data.
+        409:
+          description: Username already exists.
+        default:
+          $ref: "#/components/responses/default"
+  /user:
+    get:
+      tags:
+        - User
+      summary: Get all users
+      operationId: getAllUsers
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        401:
+          $ref: "#/components/responses/adminOnly"
+        default:
+          $ref: "#/components/responses/default"
+  /login:
+    post:
+      tags:
+        - User
+      security: []
+      summary: Logs user
+      operationId: login
+      parameters:
+        - name: username or email
+          in: query
+          description: Username or email for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: Password for login
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Logged In
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid username or password.
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        default:
+          $ref: "#/components/responses/default"
+  /user/:id:
+    get:
+      tags:
+        - User
+      summary: Get user by ID
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          description: Fetched ID.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+    put:
+      tags:
+        - User
+      summary: Update user by ID
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: ID to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        200:
+          description: "User update successful"
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+    delete:
+      tags:
+        - User
+      summary: Delete user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: ID to be deleted
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "User delete successful"
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+  /menu:
+    get:
+      tags:
+        - Products
+      summary: Get list of all menu products
+      operationId: getMenu
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/products"
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        default:
+          $ref: "#/components/responses/default"
+    post:
+      tags:
+        - Products
+      summary: Creates a menu product (Admin Only)
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/products"
+        required: true
+      responses:
+        200:
+          description: Product created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Product creation failed.
+        401:
+          $ref: "#/components/responses/adminOnly"
+        default:
+          $ref: "#/components/responses/default"
+  /menu/:id:
+    get:
+      tags:
+        - Products
+      summary: Gets product by ID
+      parameters:
+        - name: id
+          in: path
+          description: Fetch ID.
+          required: true
+          schema:
+            type: object
+      operationId: getProduct
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/products"
+        400:
+          description: Failed to get product.
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+    put:
+      tags:
+        - Products
+      summary: Updates product by ID (Admin Only)
+      parameters:
+        - name: id
+          in: path
+          description: Fetch IDD.
+          required: true
+          schema:
+            type: object
+      operationId: updateProduct
+      requestBody:
+        description: Updated data
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/products"
+        required: true
+      responses:
+        200:
+          description: Product update successful
+        400:
+          description: Update data is invalid.
+        401:
+          $ref: "#/components/responses/adminOnly"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+    delete:
+      tags:
+        - Products
+      summary: Delete product by ID (Admin Only)
+      parameters:
+        - name: id
+          in: path
+          description: Fetch ID.
+          required: true
+          schema:
+            type: object
+      operationId: deleteProduct
+      responses:
+        200:
+          description: Product delete successful
+        401:
+          $ref: "#/components/responses/adminOnly"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+  /cart:
+    get:
+      tags:
+        - Cart
+      summary: Get active cart
+      operationId: getCart
+      parameters:
+        - name: id
+          in: query
+          description: Fetch ID.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/carts"
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"  
+  /cart/:id:
+    post:
+      tags:
+        - Cart
+      summary: Adds product to cart
+      operationId: addProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cartItems"
+        required: true
+      responses:
+        200:
+          description: Product created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Product creation failed.
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        default:
+          $ref: "#/components/responses/default"  
+    delete:
+      tags:
+        - Cart
+      summary: Delete product from cart
+      parameters:
+        - name: id
+          in: path
+          description: Fetch ID.
+          required: true
+          schema:
+            type: object
+      operationId: removeCartProduct
+      responses:
+        200:
+          description: Product deleted from cart successful
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: Get list of all orders (Admin Only)
+      operationId: getAllOrders
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/orders"
+        401:
+          $ref: "#/components/responses/adminOnly"
+        default:
+          $ref: "#/components/responses/default"
+  /order:
+    get:
+      tags:
+        - Orders
+      summary: Get user order
+      operationId: getOrder
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/orders"
+        400:
+          description: No order pending
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+    post:
+      tags:
+        - Orders
+      summary: Checkout order from Cart
+      operationId: checkoutOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/orderItems"
+        required: true
+      responses:
+        200:
+          description: Order creation succesful
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Order creation failed.
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        default:
+          $ref: "#/components/responses/default"  
+  /order/:id:
+    delete:
+      tags:
+        - Orders
+      summary: Delete order order
+      parameters:
+        - name: id
+          in: path
+          description: Fetch ID.
+          required: true
+          schema:
+            type: object
+      operationId: deleteOrder
+      responses:
+        200:
+          description: Order cancelled
+        401:
+          $ref: "#/components/responses/notAuthorized"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+  /order/status/:id:
+    put:
+      tags:
+        - Orders
+      summary: Update order status (Admin Only)
+      operationId: updateOrderStatus
+      parameters:
+        - name: id
+          in: path
+          description: Fetch ID.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Order status
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderStatus:
+                  type: integer
+                  example: 2
+        required: true
+      responses:
+        200:
+          description: "Order status updated"
+        400:
+          description: Order status is already set
+        401:
+          $ref: "#/components/responses/adminOnly"
+        404:
+          $ref: "#/components/responses/notFound"
+        default:
+          $ref: "#/components/responses/default"
+
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        username:
+          type: string
+          example: jmse11
+        password:
+          type: string
+          example: thisIsAPassword123
+        fullName:
+          type: string
+          example: José María S
+        email:
+          type: string
+          example: j.m.s.e@gmail.com
+        phone:
+          type: integer
+          example: 0122333444455555
+        address:
+          type: string
+          example: Avenue 5
+        isAdmin:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+    products:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Veggie Sandwich
+        price:
+          type: number
+          example: 320
+        nameRedux:
+          type: string
+          example: VS
+        img:
+          type: string
+          example: https://via.placeholder.com/150
+        imgThumb:
+          type: string
+          example: https://via.placeholder.com/150
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+        userId:
+          type: integer
+          example: 1
+    carts:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+        userId:
+          type: integer
+          example: 1
+    cartItems:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+        cartId:
+          type: integer
+          example: 4
+        productId:
+          type: integer
+          example: 3
+    orders:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        status:
+          type: integer
+          example: 4
+        paymentMethod:
+          type: integer
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+        userId:
+          type: integer
+          example: 2
+    orderItems:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: "2020-04-22 16:27:27"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2020-05-14 11:10:09"
+        orderId:
+          type: integer
+          example: 4
+        productId:
+          type: integer
+          example: 3
+      
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    notFound:
+      description: Resource not found
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            type: object
+    notAuthorized:
+      description: Not authorized
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            Token Invalidation:
+              summary: Action not authorized - Invalid Token
+              value: Action not authorized - Invalid Token
+            Disabled Account:
+              summary: Action not authorized - Account does not exist
+              value: Action not authorized - Account does not exist
+              description: If account is deleted after log in
+    adminOnly:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+          examples:
+            Not Admin:
+              summary: Action not authorized
+              value: Action not authorized
+
+security:
+  - bearerAuth: []

@@ -1,0 +1,39 @@
+extends base
+
+block content
+    div.user-info    
+        h3 Your personal information:
+        span= `User ID: ${user.id}`
+        span= `Username: ${user.username}`
+        span= `Full Name: ${user.fullName}`
+        span= `Email: ${user.email}`
+        span= `Phone: ${user.phone}`
+        span= `Address: ${user.address}`
+
+    
+
+    h3.user-update-title Update information:
+    form.edit-user-form(action="", method="post")
+        div.form-item
+            label Username
+            input#usernameUpdate(type='text', name='username' placeholder='New username')
+        div.form-item   
+            label Passsword
+            input#passwordUpdate(type='password', name='password' placeholder='Password')
+        div.form-item   
+            abel Full name
+            input#fullNameUpdate(type='text', name='fullName' placeholder='Full Name')
+        div.form-item   
+            label Email
+            input#emailUpdate(type='email', name='email' placeholder='Email')
+        div.form-item   
+            label Phone
+            input#phoneUpdate(type='tel', name="phone" placeholder='Phone')
+        div.form-item   
+            label Delivery address
+            input#addressUpdate(type='text', name='address' placeholder='Delivery Address')
+        div.form-buttons
+            button#updateUserBtn(type="submit" value=user.id) UPDATE
+
+    div.delete-btn-div
+        button#deleteUser.delete-user(value=user.id) DELETE ACCOUNT

@@ -1,0 +1,17 @@
+extends base
+
+block content
+    a.user-dashboard-btn(href='/admin') Admin Dashboard
+    h2.create-prod-title Users
+    each user in users
+        div.admin-user-item
+            span= `User ID: ${user.id}`
+            span= `Username: ${user.username}`
+            span= `Full name: ${user.fullName}`
+            span= `Email: ${user.email}`
+            span= `Phone: ${user.phone}`
+            span= `Address: ${user.address}`
+            button#deleteUserAdmin(value=user.id) DELETE
+            
+        
+
