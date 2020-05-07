@@ -36,7 +36,7 @@ npm install
 
 ### _4. Starting the server_
 
-If server not runningalready, in your terminal execute command:
+If server not running already, in your terminal execute command:
 
 ```
 npm start
