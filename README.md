@@ -31,11 +31,12 @@ npm install
 -   Open XAMPP and start Apache Web Server, ProFTDP and MySQL Database in port `3306`.
 -   Open MySQL Workbench or any other tool for database architecture.
 -   Create database called `delilah`.
+-   Execute command `npm run dev` in terminal to sync tables to database.
 -   Populate tables by opening `queries.sql` with Workbench or copy and paste the queries inside the file.
 
 ### _4. Starting the server_
 
-In your terminal execute command:
+If server not runningalready, in your terminal execute command:
 
 ```
 npm start

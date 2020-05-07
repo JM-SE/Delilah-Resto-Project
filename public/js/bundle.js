@@ -9006,8 +9006,7 @@ var addProductCart = /*#__PURE__*/function () {
             res = _context.sent;
 
             if (res.data.status === 'success') {
-              //showAlert('success', 'Product Added');
-              location.reload(true); //setTimeout(() => location.reload(true), 300);
+              location.reload(true);
             }
 
             _context.next = 10;
@@ -9051,8 +9050,7 @@ var removeProductCart = /*#__PURE__*/function () {
             res = _context2.sent;
 
             if (res.data.status === 'success') {
-              //showAlert('success', 'Product Added');
-              location.reload(true); //setTimeout(() => location.reload(true), 300);
+              location.reload(true);
             }
 
             _context2.next = 10;
@@ -9576,7 +9574,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49452" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49834" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
