@@ -47,6 +47,12 @@ If you want to edit files from the project execute command:
 npm run dev
 ```
 
+And
+
+```
+npm run watch:js
+```
+
 ### _5. The app is ready to use_
 
 The app is ready to be tested by importing the collection included (`Delilah.postman_collection.json`) to _Postman_ or in your web browser by entering the [front-end](http://localhost:5000/).
