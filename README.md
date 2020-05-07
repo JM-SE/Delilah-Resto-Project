@@ -62,6 +62,7 @@ _If *Postman* is used `Dev:Delilah` enviroment must be selected._
 
 ## Future Implementations
 
+-   Deployment
 -   Better error handling
 -   Security
     -   Rate limiting
