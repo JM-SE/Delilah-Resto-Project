@@ -34,7 +34,7 @@ npm install
 -   Execute command `npm run dev` in terminal to sync tables to database.
 -   Enter in your browser to the [front-end](http://localhost:5000/signup) and register the admin user. Alternatively you can use Postman with the corresponding collection to create the user.
 -   After admin user is created, edit users table in the database and add `1` to the isAdmin column.
--   Populate products table by opening `queries.sql` with Workbench or copy and paste the queries inside the file.
+-   Populate products table by opening `Documentation/queries.sql` with Workbench or copy and paste the queries inside the file.
 
 ### _4. Starting the server_
 
@@ -58,7 +58,7 @@ npm run watch:js
 
 ### _5. The app is ready to use_
 
-The app is ready to be tested by importing the collection included (`Delilah.postman_collection.json`) to _Postman_ or in your web browser by entering the [front-end](http://localhost:5000/).
+The app is ready to be tested by importing the collection included (`Documentation/Delilah.postman_collection.json`) to _Postman_ or in your web browser by entering the [front-end](http://localhost:5000/).
 
 _If *Postman* is used `Dev:Delilah` enviroment must be selected._
 
@@ -76,7 +76,7 @@ _If *Postman* is used `Dev:Delilah` enviroment must be selected._
 
 ## API Documentation
 
-Open `Delilah-Resto-API-Documentation.yaml` with any text editor, JSON viewer or in [Swagger](https://editor.swagger.io/) by importing the file in the File tab.
+Open `Documentation/Delilah-Resto-API-Documentation.yaml` with any text editor, JSON viewer or in [Swagger](https://editor.swagger.io/) by importing the file in the File tab.
 
 A list of the available endpoints and methods will be listed with the necessary information to use the API.
 
