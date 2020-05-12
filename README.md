@@ -30,6 +30,7 @@ npm install
 
 -   Open XAMPP and start Apache Web Server, ProFTDP and MySQL Database in port `3306`.
 -   Open MySQL Workbench or any other tool for database architecture.
+-   Connect Workbench to DB in host `localhost` with `username: root` and `password` should be empty.
 -   Create database called `delilah`.
 -   Execute command `npm run dev` in terminal to sync tables to database.
 -   Enter in your browser to the [front-end](http://localhost:5000/signup) and register the admin user. Alternatively you can use Postman with the corresponding collection to create the user.
