@@ -252,3 +252,22 @@ exports.userUpdate = async (req, res) => {
         console.log(err);
     }
 };
+
+exports.adminCreation = () => {
+    bcrypt
+        .hash('admin', 12)
+        .then(async (hashedPassword) => {
+            await User.create({
+                username: 'admin',
+                password: hashedPassword,
+                fullName: 'Delilah Admin',
+                email: 'info@delilah-resto.com',
+                phone: 1223334444,
+                address: '37 Delilah Ave.',
+                isAdmin: 1,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};

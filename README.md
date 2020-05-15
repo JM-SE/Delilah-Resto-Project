@@ -32,10 +32,9 @@ npm install
 -   Open MySQL Workbench or any other tool for database architecture.
 -   Connect Workbench to DB in host `localhost` with `username: root` and `password` should be empty.
 -   Create database called `delilah`.
--   Execute command `npm run dev` in terminal to sync tables to database.
--   Enter in your browser to the [front-end](http://localhost:5000/signup) and register the admin user. Alternatively you can use Postman with the corresponding collection to create the user.
--   After admin user is created, edit users table in the database and add `1` to the isAdmin column.
--   Populate products table by opening `Documentation/queries.sql` with Workbench or copy and paste the queries inside the file.
+-   Execute command `npm run dev` in terminal to start the server. Sequelize automatically creates the required tables in the database.
+-   Admin user is created automatically after the server is synchronized with the database. The default credentials for admin user are `username: _admin_` and `password: _admin_` this credentials can be changed in the front-end or by using Postman.
+-   Populate products table by opening `Documentation/queries.sql` with Workbench, or copy and paste the queries inside the file. If you wish you can create your own products.
 
 ### _4. Starting the server_
 
@@ -51,7 +50,7 @@ If you want to edit files from the project execute command:
 npm run dev
 ```
 
-And
+`And`
 
 ```
 npm run watch:js

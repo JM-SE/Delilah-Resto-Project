@@ -14,6 +14,7 @@ const Cart = require('./models/cart');
 const CartItem = require('./models/cartItem');
 const Order = require('./models/order');
 const OrderItem = require('./models/orderItem');
+const authController = require('./controllers/authController');
 
 const app = express();
 
@@ -59,9 +60,12 @@ Order.belongsToMany(Product, { through: OrderItem });
 //
 // Server
 db.sync()
-    .then((res) => {
+    .then((_res) => {
         const { PORT } = process.env;
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    })
+    .then((_res) => {
+        authController.adminCreation();
     })
     .catch((err) => {
         console.log(err);
