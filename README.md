@@ -1,6 +1,6 @@
 # **Delilah Resto**
 
-Third project from the Full Stack Web Development bootcamp in Acámica.
+#### Third project from the Full Stack Web Development bootcamp in Acámica.
 
 The project goal was to create the back-end for a food delivery app, the architecture design, database, endpoints and documentation.
 
